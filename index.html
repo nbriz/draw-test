@@ -1,5 +1,5 @@
-<h1>draw!</h1>
-<script src="https://cdn.jsdelivr.net/gh/netizenorg/netnet-standard-library/build/nn.min.js"></script>
+<h1>draw (pointer)</h1>
+<script src="https://cdn.jsdelivr.net/gh/netizenorg/netnet-standard-library@1.0.1/build/nn.min.js"></script>
 <script>
 /* global nn */
 let drawing = false
@@ -10,7 +10,7 @@ function drawCD (e) {
   nn.create('img')
     .set('src', 'https://netnet.studio/cd.gif')
     .positionOrigin('center')
-    .position(e.x, e.y)
+    .position(nn.pointer.x, nn.pointer.y)
     .css('pointer-events', 'none')
     .addTo('body')
 }
