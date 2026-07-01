@@ -1,19 +1,35 @@
 <h1>draw!</h1>
-<script src="https://cdn.jsdelivr.net/gh/netizenorg/netnet-standard-library@1.0.1/build/nn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/netizenorg/netnet-standard-library/build/nn.min.js"></script>
 <script>
-  function drawGifs () {
-    // if mouse is not (!) pressed down exit function
-    if (!nn.mouseDown) return
-    // otherwise, create a new gif
-    nn.create('img')
-      .set('src', 'https://netnet.studio/cd.gif')
-      .positionOrigin('center')
-      .position(nn.pointer.x, nn.pointer.y)
-      .css('pointer-events', 'none')
-      .addTo('body')
-  }
+/* global nn */
+let drawing = false
 
-  // click and drag mouse across the screen
-  // to draw new gif img elements
-  nn.on('mousemove', drawGifs)
+function drawCD (e) {
+  if (!drawing) return
+
+  nn.create('img')
+    .set('src', 'https://netnet.studio/cd.gif')
+    .positionOrigin('center')
+    .position(e.x, e.y)
+    .css('pointer-events', 'none')
+    .addTo('body')
+}
+
+function touch () {
+  drawing = true
+}
+
+function release () {
+  drawing = false
+}
+
+function setup () {
+  nn.get('body').css('touch-action', 'none')
+}
+
+nn.on('load', setup)
+nn.on('pointerdown', touch)
+nn.on('pointermove', drawCD)
+nn.on('pointerup', release)
+nn.on('pointercancel', release)
 </script>
